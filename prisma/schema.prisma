@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://aditya:kBWlmmVDH4ncMH9hf9NtUg@free-tier4.aws-us-west-2.cockroachlabs.cloud:26257/test?sslmode=verify-full&options=--cluster%3Dgreedy-leopard-3941"
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  firstName  String?
+  lastName String?
+  email String  @unique
+  username String @unique
+  gender String? 
+  request Request[]
+}
+
+model Request {
+  id    Int     @id @default(autoincrement())
+  date  DateTime @default("2020-03-19T14:21:00+02:00")
+  pickup String?
+  destination String?
+  host User? @relation(fields: [hostUserName], references: [username])
+  hostUserName String?
+  domestic Boolean
+  active Boolean
+}
+ 
