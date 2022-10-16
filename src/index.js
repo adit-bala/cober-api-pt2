@@ -55,7 +55,7 @@ app.get("/requests", async (req, res) => {
   const {pick} = req.query;
   const requests = await prisma.post.findMany({
     where: { pickup: { contains: pick } },
-    include: { domestic: true, active: true },
+    include: { domestic: false, active: true },
     orderBy: {
       date: orderBy || undefined,
     },
